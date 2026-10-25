@@ -152,3 +152,9 @@ exports.deleteFood = async(req,res)=>{
     });
 
 };
+
+// Re-export shared admin utilities
+exports.getAllUsers = require("./userController").getAllUsers;
+exports.getAllOrders = require("./orderController").getAllOrders;
+exports.updateOrderStatus = require("./orderController").updateOrderStatus;
+exports.deleteUser = require("./userController").deleteUserById;
