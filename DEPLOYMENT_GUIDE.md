@@ -38,8 +38,8 @@ Deploying to **[Render.com](https://render.com)** (Free Web Service):
 Open `frontend_09_realtime/assets/app.js` and set your backend URL:
 
 ```javascript
-// frontend_09_realtime/assets/app.js (Line 10)
-const PROD_BACKEND_URL = "https://your-backend-app.onrender.com";
+// frontend_09_realtime/assets/app.js (Line 12)
+const PROD_BACKEND_URL = "https://online-food-gpqh.onrender.com";
 ```
 
 *(When running locally on `localhost` or `127.0.0.1`, `app.js` automatically uses `http://127.0.0.1:5000` without any changes needed!)*

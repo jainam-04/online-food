@@ -9,7 +9,7 @@
 // When deployed on Vercel or cloud, set your backend URL below
 // (e.g., https://your-backend.onrender.com).
 // When testing locally (localhost/127.0.0.1), it automatically uses http://127.0.0.1:5000.
-const PROD_BACKEND_URL = "https://foodiehub-backend.onrender.com";
+const PROD_BACKEND_URL = "https://online-food-gpqh.onrender.com";
 
 const isLocalhost = Boolean(
     window.location.hostname === "localhost" ||
