@@ -426,9 +426,50 @@ function fhEnableLoginFieldNavigation() {
     });
 }
 
-/* ===================== INIT ===================== */
+/* ===================== INIT & WINDOW EXPORTS ===================== */
 window.addEventListener("DOMContentLoaded", () => {
     fhMountCartBadge();
     fhEnableEnterNavigation();
     fhEnableLoginFieldNavigation();
 });
+
+if (typeof window !== "undefined") {
+    window.API_BASE = API_BASE;
+    window.PROD_BACKEND_URL = PROD_BACKEND_URL;
+    window.getAuthToken = getAuthToken;
+    window.apiFetch = apiFetch;
+    window.getSession = getSession;
+    window.requireLogin = requireLogin;
+    window.requireAdmin = requireAdmin;
+    window.loginUser = loginUser;
+    window.logoutUser = logoutUser;
+    window.getProfile = getProfile;
+    window.updateProfile = updateProfile;
+    window.getProducts = getProducts;
+    window.addProduct = addProduct;
+    window.deleteProduct = deleteProduct;
+    window.updateProduct = updateProduct;
+    window.getCart = getCart;
+    window.addToCart = addToCart;
+    window.updateCartQty = updateCartQty;
+    window.removeFromCart = removeFromCart;
+    window.clearCart = clearCart;
+    window.cartTotal = cartTotal;
+    window.cartCount = cartCount;
+    window.getOrders = getOrders;
+    window.placeOrder = placeOrder;
+    window.updateOrderStatus = updateOrderStatus;
+    window.deleteOrder = deleteOrder;
+    window.getMyOrders = getMyOrders;
+    window.getCateringPackages = getCateringPackages;
+    window.addCateringRequest = addCateringRequest;
+    window.getMyCateringRequests = getMyCateringRequests;
+    window.getCateringRequests = getCateringRequests;
+    window.cancelCateringRequest = cancelCateringRequest;
+    window.getSuggestions = getSuggestions;
+    window.addSuggestion = addSuggestion;
+    window.approveSuggestion = approveSuggestion;
+    window.rejectSuggestion = rejectSuggestion;
+    window.getReviews = getReviews;
+    window.connectSocket = connectSocket;
+}

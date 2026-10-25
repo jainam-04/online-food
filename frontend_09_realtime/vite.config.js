@@ -1,7 +1,59 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import fs from 'fs';
+
+function copyStaticAssetsPlugin() {
+  return {
+    name: 'copy-static-assets',
+    closeBundle() {
+      const distDir = resolve(__dirname, 'dist');
+      const distAssetsDir = resolve(distDir, 'assets');
+      const srcAssetsDir = resolve(__dirname, 'assets');
+      const publicDir = resolve(__dirname, 'public');
+
+      if (!fs.existsSync(distDir)) {
+        fs.mkdirSync(distDir, { recursive: true });
+      }
+      if (!fs.existsSync(distAssetsDir)) {
+        fs.mkdirSync(distAssetsDir, { recursive: true });
+      }
+
+      // 1. Copy everything from assets/ to dist/assets/
+      if (fs.existsSync(srcAssetsDir)) {
+        const files = fs.readdirSync(srcAssetsDir);
+        for (const file of files) {
+          const src = resolve(srcAssetsDir, file);
+          const dest = resolve(distAssetsDir, file);
+          if (fs.statSync(src).isFile()) {
+            fs.copyFileSync(src, dest);
+          }
+        }
+      }
+
+      // 2. Copy everything from public/ recursively to dist/
+      if (fs.existsSync(publicDir)) {
+        const copyFolder = (from, to) => {
+          if (!fs.existsSync(to)) fs.mkdirSync(to, { recursive: true });
+          const entries = fs.readdirSync(from, { withFileTypes: true });
+          for (const entry of entries) {
+            const srcPath = resolve(from, entry.name);
+            const destPath = resolve(to, entry.name);
+            if (entry.isDirectory()) {
+              copyFolder(srcPath, destPath);
+            } else {
+              fs.copyFileSync(srcPath, destPath);
+            }
+          }
+        };
+        copyFolder(publicDir, distDir);
+      }
+    }
+  };
+}
 
 export default defineConfig({
+  publicDir: 'public',
+  plugins: [copyStaticAssetsPlugin()],
   build: {
     rollupOptions: {
       input: {
@@ -29,3 +81,4 @@ export default defineConfig({
     }
   }
 });
+

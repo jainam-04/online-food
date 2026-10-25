@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodieHub Login</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="/favicon.ico">
     <link rel="stylesheet" href="assets/responsive.css">
 
     <style>
@@ -140,6 +142,12 @@
                 }
 
                 // Save token + user for later authenticated requests
+                if (data.token) {
+                    localStorage.setItem("fh_token", data.token);
+                }
+                if (data.user) {
+                    localStorage.setItem("fh_user", JSON.stringify(data.user));
+                }
                 const isAdmin = Boolean(data.user && (data.user.isAdmin || data.user.role === "admin"));
                 if (isAdmin) {
                     window.location.href = "admindashbord.html";
