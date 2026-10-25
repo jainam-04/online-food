@@ -2,16 +2,17 @@ const mongoose = require("mongoose");
 
 const suggestionSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.Mixed,
     ref: "User",
-    required: true
+    required: false,
+    default: null
   },
   name: { type: String, required: true },
   price: { type: Number, required: true },
   desc: { type: String, default: "" },
-  image: { type: String, required: true },
-  suggestedBy: { type: String, required: true },
-  status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" }
+  image: { type: String, default: "" },
+  suggestedBy: { type: String, default: "Guest" },
+  status: { type: String, default: "pending" }
 }, { timestamps: true });
 
 suggestionSchema.index({ status: 1, createdAt: -1 });

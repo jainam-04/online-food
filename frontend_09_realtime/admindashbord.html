@@ -346,20 +346,38 @@
 
             suggestionsTableBody.querySelectorAll('.approve-btn').forEach(btn => {
                 btn.addEventListener('click', async () => {
+                    const id = btn.dataset.suggestionId;
+                    btn.disabled = true;
+                    btn.textContent = 'Approving...';
                     try {
-                        await approveSuggestion(btn.dataset.suggestionId);
+                        const res = await approveSuggestion(id);
+                        if (res && res.suggestion) {
+                            suggestionsById[res.suggestion._id] = res.suggestion;
+                            renderSuggestions(Object.values(suggestionsById));
+                        }
                     } catch (err) {
                         alert(err.message || 'Could not approve suggestion');
+                        btn.disabled = false;
+                        btn.textContent = 'Approve';
                     }
                 });
             });
 
             suggestionsTableBody.querySelectorAll('.reject-btn').forEach(btn => {
                 btn.addEventListener('click', async () => {
+                    const id = btn.dataset.suggestionId;
+                    btn.disabled = true;
+                    btn.textContent = 'Rejecting...';
                     try {
-                        await rejectSuggestion(btn.dataset.suggestionId);
+                        const res = await rejectSuggestion(id);
+                        if (res && res.suggestion) {
+                            suggestionsById[res.suggestion._id] = res.suggestion;
+                            renderSuggestions(Object.values(suggestionsById));
+                        }
                     } catch (err) {
                         alert(err.message || 'Could not reject suggestion');
+                        btn.disabled = false;
+                        btn.textContent = 'Reject';
                     }
                 });
             });
