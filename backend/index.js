@@ -61,6 +61,19 @@ const mongoose = require('mongoose');
 // Serve uploaded images statically
 app.use('/uploads', express.static('uploads'));
 
+// Health check and root info
+app.get('/', (req, res) => {
+  res.json({
+    name: "FoodieHub API",
+    status: "online",
+    version: "1.0.3"
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: "healthy", timestamp: new Date().toISOString() });
+});
+
 app.use("/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/users", userRoutes);
